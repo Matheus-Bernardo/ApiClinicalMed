@@ -5,6 +5,7 @@ using WebApplication1.Repositories.PatientRepository;
 using WebApplication1.Services.Validators.CpfValidator;
 using WebApplication1.Services.Validators.EmailValidator;
 using WebApplication1.Services.Validators.SusCardValidator;
+using WebApplication1.Utils;
 
 namespace WebApplication1.Services.PatientService;
 
@@ -14,17 +15,20 @@ public class PatientService : IPatientService
     private readonly IEmailValidatorService _emailValidatorService;
     private readonly ICpfValidatorService _cpfValidatorService;
     private readonly ISusCardValidatorService _susCardValidatorService;
+    private readonly PasswordHasher _passwordHasher;
 
     public PatientService(
         IPatientRepository patientRepository,
         IEmailValidatorService emailValidatorService,
         ICpfValidatorService cpfValidatorService,
-        ISusCardValidatorService susCardValidatorService)
+        ISusCardValidatorService susCardValidatorService,
+        PasswordHasher passwordHasher)
     {
         _patientRepository = patientRepository;
         _emailValidatorService = emailValidatorService;
         _cpfValidatorService = cpfValidatorService;
         _susCardValidatorService = susCardValidatorService;
+        _passwordHasher = passwordHasher;
     }
     
     public async Task<CreatePatientDto> CreatePatient(CreatePatientDto patientDto)
@@ -37,6 +41,7 @@ public class PatientService : IPatientService
         
         if (await _susCardValidatorService.SusCardAlreadyRegistered(patientDto.susCard))
             throw new ArgumentException($"Sus Card {patientDto.susCard} is already registered");
+        var passwordHash = _passwordHasher.HashPassword(patientDto.password);
         
         var newPatient = new Patient
         {
@@ -51,7 +56,7 @@ public class PatientService : IPatientService
             complement = patientDto.complement,
             typeUser = TypeUser.patient,
             email = patientDto.email,
-            password = patientDto.password,
+            password = passwordHash,
             susCard = patientDto.susCard,
             messagePhone = patientDto.messagePhone,
             familyHistoryDisease = patientDto.familyHistoryDisease,

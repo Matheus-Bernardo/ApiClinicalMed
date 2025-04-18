@@ -15,7 +15,6 @@ public class PatientController : ControllerBase
     }
 
     [HttpPost]
-    
     public async Task< IActionResult> CreatePatient([FromBody] CreatePatientDto patientDto)
     {
         try
