@@ -5,5 +5,5 @@ namespace WebApplication1.Services.LoginService;
 
 public interface ILoginService
 {
-    public Task<User?> login(LoginDto loginDto); 
+    public Task<ResponseLoginDto> login(LoginDto loginDto); 
 }

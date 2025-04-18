@@ -15,6 +15,8 @@ builder.Services.AddApplicationPatientServices();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<FindUser>();
+builder.Services.AddScoped<JwtService>();
+builder.Services.AddJwtCollection(builder.Configuration);
 
 //Ccontrollers and swagger
 builder.Services.AddControllers();
@@ -25,5 +27,9 @@ var app = builder.Build();
 app.MapControllers();
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseAuthentication(); 
+app.UseAuthorization();
+
 
 app.Run();

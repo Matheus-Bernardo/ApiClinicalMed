@@ -8,14 +8,16 @@ public class LoginService: ILoginService
 {
     private readonly FindUser _findUser;
     private  PasswordHasher _passwordHasher;
+    private JwtService _jwtService;
 
-    public LoginService(FindUser findUser, PasswordHasher passwordHasher)
+    public LoginService(FindUser findUser, PasswordHasher passwordHasher, JwtService jwtService)
     {
         _findUser = findUser;
         _passwordHasher = passwordHasher;
+        _jwtService = jwtService;
     }
     
-    public async Task<User?> login(LoginDto loginDto)
+    public async Task<ResponseLoginDto> login(LoginDto loginDto)
     {
         var user = await _findUser.FindUserByEmail(loginDto.email);
         
@@ -28,7 +30,15 @@ public class LoginService: ILoginService
         if (!_passwordHasher.VerifyHashedPassword(user.password,loginDto.password))
             throw new ArgumentException("Invalid password");
         
-        return user;
+        var token = _jwtService.GenerateToken(user);
+        
+        return new ResponseLoginDto()
+        {
+            Id = user.Id,
+            Token = token,
+            FirstName = user.firstName,
+            Role = user.typeUser.ToString()
+        };
         
     }
 }
