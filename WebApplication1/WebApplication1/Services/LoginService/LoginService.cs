@@ -7,10 +7,10 @@ namespace WebApplication1.Services.LoginService;
 public class LoginService: ILoginService
 {
     private readonly FindUser _findUser;
-    private  PasswordHasher _passwordHasher;
-    private JwtService _jwtService;
+    private  IPasswordHasher _passwordHasher;
+    private IJwtService _jwtService;
 
-    public LoginService(FindUser findUser, PasswordHasher passwordHasher, JwtService jwtService)
+    public LoginService(FindUser findUser, IPasswordHasher passwordHasher, IJwtService jwtService)
     {
         _findUser = findUser;
         _passwordHasher = passwordHasher;

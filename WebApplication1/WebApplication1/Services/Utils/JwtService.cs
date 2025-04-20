@@ -6,7 +6,7 @@ using WebApplication1.Core.Entities;
 
 namespace WebApplication1.Utils;
 
-public class JwtService
+public class JwtService : IJwtService
 {
     private readonly IConfiguration _configuration;
 

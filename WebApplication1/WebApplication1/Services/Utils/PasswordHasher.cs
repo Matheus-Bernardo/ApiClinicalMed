@@ -1,6 +1,6 @@
 ﻿namespace WebApplication1.Utils;
 
-public class PasswordHasher
+public class PasswordHasher : IPasswordHasher
 {
     public string HashPassword(string password)
     {
