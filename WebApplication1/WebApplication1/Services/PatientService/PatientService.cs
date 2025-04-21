@@ -15,14 +15,14 @@ public class PatientService : IPatientService
     private readonly IEmailValidatorService _emailValidatorService;
     private readonly ICpfValidatorService _cpfValidatorService;
     private readonly ISusCardValidatorService _susCardValidatorService;
-    private readonly PasswordHasher _passwordHasher;
+    private readonly IPasswordHasher _passwordHasher;
 
     public PatientService(
         IPatientRepository patientRepository,
         IEmailValidatorService emailValidatorService,
         ICpfValidatorService cpfValidatorService,
         ISusCardValidatorService susCardValidatorService,
-        PasswordHasher passwordHasher)
+        IPasswordHasher passwordHasher)
     {
         _patientRepository = patientRepository;
         _emailValidatorService = emailValidatorService;
