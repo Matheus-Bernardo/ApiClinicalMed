@@ -32,13 +32,13 @@ builder.Services.AddJwtCollection(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+/*
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ListenAnyIP(80);
 });
 
-
+*/
 var app = builder.Build();
 app.MapControllers();
 app.UseSwagger();
