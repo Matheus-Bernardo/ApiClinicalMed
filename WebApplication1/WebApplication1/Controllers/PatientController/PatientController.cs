@@ -32,5 +32,23 @@ public class PatientController : ControllerBase
         }
         
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePatient([FromBody] UpdatePatientDto patientDto,int id)
+    {
+        try
+        {
+            var patientUpdated = await _patientService.UpdatePatient(patientDto, id);
+            return Ok("Patient Updated");
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Erro interno");
+        }
+    }
     
 }
