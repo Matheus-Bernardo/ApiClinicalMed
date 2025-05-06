@@ -26,4 +26,21 @@ public class PatientRepository: IPatientRepository
          await _context.SaveChangesAsync();
          return patient;
     }
+
+    public async Task<List<Patient>> GetAllPatients()
+    {
+        return await _context.Patient.ToListAsync();
+    }
+
+    public async Task<Patient?> GetPatientById(int id)
+    {
+        return await _context.Patient.FindAsync(id);
+    }
+
+    public async Task<bool> DeletePatient(Patient patient)
+    {
+        _context.Patient.Remove(patient);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

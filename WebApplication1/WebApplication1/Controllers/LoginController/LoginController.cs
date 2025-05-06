@@ -18,18 +18,7 @@ public class LoginController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
-        try
-        {
-            var userLogin = await _loginService.login(loginDto);
-            return Ok(userLogin);
-        }
-        catch (ArgumentException e)
-        {
-            return BadRequest(e.Message);
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500,"Erro Interno "+ e.Message);
-        }
+        var userLogin = await _loginService.login(loginDto);
+        return Ok(userLogin);
     }
 }

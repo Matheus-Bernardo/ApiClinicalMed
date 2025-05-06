@@ -35,7 +35,7 @@ public class PatientService : IPatientService
         _susCardValidatorService = susCardValidatorService;
     }
     
-    public async Task<CreatePatientDto> CreatePatient(CreatePatientDto patientDto)
+    public async Task<PatientResponseDto> CreatePatient(CreatePatientDto patientDto)
     {
         if (await _emailValidatorService.EmailAlreadyRegistered(patientDto.email))
             throw new ArgumentException($"Email {patientDto.email} is already registered");
@@ -69,8 +69,17 @@ public class PatientService : IPatientService
             updatedAt = null
         };
         
-        await _patientRepository.AddPatient(newPatient);
-        return patientDto;
+        var createdPatient =  await _patientRepository.AddPatient(newPatient);
+        return new PatientResponseDto
+        {
+            Id = createdPatient.Id,
+            FirstName = createdPatient.firstName,
+            LastName = createdPatient.lastName,
+            Email = createdPatient.email,
+            SusCard = createdPatient.susCard,
+            Phone = createdPatient.phone,
+            City = createdPatient.city
+        };
 
     }
 
@@ -116,5 +125,62 @@ public class PatientService : IPatientService
         }
         
 
+    }
+
+    public async Task<List<PatientResponseDto>> GetAllPatient()
+    {
+        var patients = await _patientRepository.GetAllPatients();
+
+        return patients.Select(p => new PatientResponseDto
+        {
+            Id = p.Id,
+            FirstName = p.firstName,
+            LastName = p.lastName,
+            Email = p.email,
+            SusCard = p.susCard,
+            Phone = p.phone,
+            City = p.city,
+        }).ToList();
+    }
+
+    public async Task<PatientResponseDto?> GetPatientById(int id)
+    {
+        var patient = await _patientRepository.GetPatientById(id);
+        
+        if(patient == null)
+            throw new ArgumentException($"User with id {id} not found");
+
+        return new PatientResponseDto
+        {
+            Id = patient.Id,
+            FirstName = patient.firstName,
+            LastName = patient.lastName,
+            Email = patient.email,
+            SusCard = patient.susCard,
+            Phone = patient.phone,
+            City = patient.city,
+
+        };
+
+    }
+
+    public async Task<bool> DeletePatient(int id)
+    {
+        var patiendDeleted = await _findUser.FindPatientById(id);
+        if(patiendDeleted == null)
+            throw new ArgumentException($"User with id {id} not found");
+        try
+        {
+            await _patientRepository.DeletePatient(patiendDeleted);
+            return true;
+        }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentException("Ocorreu uma falha para deletar:", e.Message);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Erro do servidor:"+ e.Message);
+        }
     }
 }

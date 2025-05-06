@@ -28,4 +28,9 @@ public class FindUser
     {
         return _dbContext.Patient.FirstOrDefaultAsync(user => user.Id == userId);
     }
+
+    public Task<Doctor?> FindDoctorById(int userId)
+    {
+        return _dbContext.Doctor.FirstOrDefaultAsync(user => user.Id == userId);
+    }
 }
