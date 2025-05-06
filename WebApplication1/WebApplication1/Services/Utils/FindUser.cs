@@ -23,4 +23,14 @@ public class FindUser
     {
         return await _dbContext.User.FirstOrDefaultAsync(user => user.email == email && user.typeUser == userType);
     }
+
+    public Task<Patient?> FindPatientById(int userId)
+    {
+        return _dbContext.Patient.FirstOrDefaultAsync(user => user.Id == userId);
+    }
+
+    public Task<Doctor?> FindDoctorById(int userId)
+    {
+        return _dbContext.Doctor.FirstOrDefaultAsync(user => user.Id == userId);
+    }
 }

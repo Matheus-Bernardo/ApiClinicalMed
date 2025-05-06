@@ -14,22 +14,39 @@ public class DoctorController : ControllerBase
         _doctorService = doctorService;
     }
 
+    [HttpPost]
     public async Task<IActionResult> CreateDoctor([FromBody] CreateDoctorDto doctorDto)
     {
-        try
-        {
-            var patientCreated = await _doctorService.CreateDoctor(doctorDto);
-            return CreatedAtAction("CreateDoctor", patientCreated);
-        }
-        catch (ArgumentException e)
-        {
-            return BadRequest(e.Message);
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500, "Internal server error"+e.Message);
-        }
+        var doctortCreated = await _doctorService.CreateDoctor(doctorDto);
+        return CreatedAtAction("CreateDoctor", doctortCreated);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateDoctor([FromBody] UpdateDoctorDto doctorDto, int id)
+    {
+        var doctorUpdated = await _doctorService.UpdateDoctor(doctorDto, id);
+        return Ok("doctor Updated");
     }
     
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteDoctor(int id)
+    {
+        await _doctorService.DeleteDoctor(id);
+        return NoContent();
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<List<DoctorResponseDto>>> GetAllDoctors()
+    {
+        var doctors = await _doctorService.GetAllDoctors();
+        return Ok(doctors);
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<DoctorResponseDto>> GetDoctorById(int id)
+    {
+        var doctors = await _doctorService.GetDoctorById(id);
+        return Ok(doctors);
+    }
     
 }
