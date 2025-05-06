@@ -34,7 +34,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-app.MapControllers();
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -44,4 +43,5 @@ app.UseAuthorization();
 
 app.UseGlobalExceptionHandler();
 
+app.MapControllers();
 app.Run();

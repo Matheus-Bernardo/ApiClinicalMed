@@ -19,6 +19,18 @@ public class LoginController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
         var userLogin = await _loginService.login(loginDto);
-        return Ok(userLogin);
+        HttpContext.Response.Cookies.Append("jwt", userLogin.Token, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddHours(1)
+        });
+        return Ok(new
+        {
+            userLogin.Id,
+            userLogin.FirstName,
+            userLogin.Role
+        });
     }
 }

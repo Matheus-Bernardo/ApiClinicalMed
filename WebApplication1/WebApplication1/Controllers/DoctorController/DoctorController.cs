@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.DTOS.Doctor;
 using WebApplication1.Services.DoctorService;
 namespace WebApplication1.Controllers.DoctorController;
@@ -13,14 +14,16 @@ public class DoctorController : ControllerBase
     {
         _doctorService = doctorService;
     }
-
+    
+    [Authorize(Roles = "doctor")]
     [HttpPost]
     public async Task<IActionResult> CreateDoctor([FromBody] CreateDoctorDto doctorDto)
     {
         var doctortCreated = await _doctorService.CreateDoctor(doctorDto);
         return CreatedAtAction("CreateDoctor", doctortCreated);
     }
-
+    
+    [Authorize(Roles = "doctor")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateDoctor([FromBody] UpdateDoctorDto doctorDto, int id)
     {
@@ -28,6 +31,7 @@ public class DoctorController : ControllerBase
         return Ok("doctor Updated");
     }
     
+    [Authorize(Roles = "doctor")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteDoctor(int id)
     {
@@ -35,6 +39,7 @@ public class DoctorController : ControllerBase
         return NoContent();
     }
     
+    [Authorize(Roles = "doctor")]
     [HttpGet]
     public async Task<ActionResult<List<DoctorResponseDto>>> GetAllDoctors()
     {
@@ -42,6 +47,7 @@ public class DoctorController : ControllerBase
         return Ok(doctors);
     }
     
+    [Authorize(Roles = "doctor")]
     [HttpGet("{id}")]
     public async Task<ActionResult<DoctorResponseDto>> GetDoctorById(int id)
     {
