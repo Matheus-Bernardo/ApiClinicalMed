@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.DTOS.Patient;
 using WebApplication1.Services.PatientService;
 namespace WebApplication1.Controllers.PatientController;
@@ -13,21 +14,24 @@ public class PatientController : ControllerBase
     {
         _patientService = patientService;
     }
-
+    
     [HttpPost]
     public async Task< IActionResult> CreatePatient([FromBody] CreatePatientDto patientDto)
     {
         var patientCreated = await _patientService.CreatePatient(patientDto);
         return CreatedAtAction("CreatePatient", patientCreated);
     }
-
+    
+    [Authorize]
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdatePatient([FromBody] UpdatePatientDto patientDto,int id)
+    public async Task<IActionResult> UpdatePatient([FromBody] UpdatePatientDto patientDto, int id)
     {
         var patientUpdated = await _patientService.UpdatePatient(patientDto, id);
         return Ok("Patient Updated");
+
     }
     
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePatient(int id)
     {
@@ -35,6 +39,7 @@ public class PatientController : ControllerBase
         return NoContent();
     }
     
+    [Authorize(Roles = "doctor")]
     [HttpGet]
     public async Task<ActionResult<List<PatientResponseDto>>> GetAllPatients()
     {
@@ -42,6 +47,7 @@ public class PatientController : ControllerBase
         return Ok(patients);
     }
     
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<PatientResponseDto>> GetPatientById(int id)
     {

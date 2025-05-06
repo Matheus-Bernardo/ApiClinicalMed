@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Security.Authentication;
 using System.Text.Json;
 
 namespace WebApplication1.Middleware;
@@ -32,7 +33,6 @@ public class ExceptionMiddleware
         {
             ArgumentException => HttpStatusCode.BadRequest,
             KeyNotFoundException => HttpStatusCode.NotFound,
-            // Adicione outros tipos customizados aqui se quiser
             _ => HttpStatusCode.InternalServerError
         };
 
