@@ -159,6 +159,9 @@ public class PatientService : IPatientService
             SusCard = patient.susCard,
             Phone = patient.phone,
             City = patient.city,
+            District = patient.district,
+            Street= patient.street,
+            Complement = patient.complement
 
         };
 
