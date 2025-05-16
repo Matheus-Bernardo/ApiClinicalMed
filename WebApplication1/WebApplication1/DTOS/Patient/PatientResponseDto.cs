@@ -9,4 +9,9 @@ public class PatientResponseDto
     public string SusCard { get; set; } = default!;
     public string Phone { get; set; } = default!;
     public string City { get; set; } = default!;
+    public string District { get; set; } = default!;
+    public string Street { get; set; } = default!;
+    public string Complement { get; set; } = default!;
+    
+    
 }

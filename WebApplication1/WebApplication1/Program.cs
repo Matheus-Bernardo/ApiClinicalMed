@@ -8,13 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.SetIsOriginAllowed(origin => origin == "https://clinicalmedweb.web.app")
+            .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowAnyHeader();
+            .AllowCredentials();
     });
+
 });
+
 
 //connection Bd
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -37,7 +40,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication(); 
 app.UseAuthorization();
 
