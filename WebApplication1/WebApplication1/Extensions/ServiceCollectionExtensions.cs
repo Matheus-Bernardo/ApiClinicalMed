@@ -1,7 +1,9 @@
 ﻿using WebApplication1.Repositories.DoctorRepository;
 using WebApplication1.Repositories.PatientRepository;
+using WebApplication1.Repositories.TypeAppointmentMedicalRepository;
 using WebApplication1.Services.DoctorService;
 using WebApplication1.Services.PatientService;
+using WebApplication1.Services.TypeAppointmentMedicalService;
 using WebApplication1.Services.Validators.CpfValidator;
 using WebApplication1.Services.Validators.CrmValidator;
 using WebApplication1.Services.Validators.EmailValidator;
@@ -16,10 +18,12 @@ public static class ServiceCollectionExtensions
         //repositories
         services.AddScoped<IDoctorRepository, DoctorRepository>();
         services.AddScoped<IPatientRepository, PatientRepository>();
+        services.AddScoped<IAppointmentMedicalRepository, AppointmentMedicalRepository>();
         
         //services
         services.AddScoped<IDoctorService, DoctorService>();
         services.AddScoped<IPatientService, PatientService>();
+        services.AddScoped<ITypeAppointmentService, TypeAppointmentService>();
         
         //validators
         services.AddScoped<ICrmValidator, CrmValidator>();

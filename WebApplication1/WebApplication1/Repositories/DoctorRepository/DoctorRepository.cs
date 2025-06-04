@@ -8,12 +8,11 @@ namespace WebApplication1.Repositories.DoctorRepository;
 public class DoctorRepository : IDoctorRepository
 {
     private readonly AppDbContext _context;
-    private readonly FindUser _findUser;
-
+    
     public DoctorRepository(AppDbContext context, FindUser findUser)
     {
         _context = context;
-        _findUser = findUser;
+        
     }
     
     public async Task<Doctor?> CreateDoctor(Doctor doctor)

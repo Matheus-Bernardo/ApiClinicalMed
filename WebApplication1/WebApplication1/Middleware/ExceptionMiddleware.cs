@@ -33,6 +33,7 @@ public class ExceptionMiddleware
         {
             ArgumentException => HttpStatusCode.BadRequest,
             KeyNotFoundException => HttpStatusCode.NotFound,
+            UnauthorizedAccessException => HttpStatusCode.Forbidden,
             _ => HttpStatusCode.InternalServerError
         };
 
