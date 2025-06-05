@@ -4,5 +4,5 @@ namespace WebApplication1.Services.ConsultationService;
 
 public interface IConsultationService
 {
-    Task<CreateConsultationDto> createConsultation(CreateConsultationDto createConsultationDto);
+    Task<ResponseCreateConsultation> createConsultation(CreateConsultationDto createConsultationDto);
 }

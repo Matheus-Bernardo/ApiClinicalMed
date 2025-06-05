@@ -22,6 +22,6 @@ public class AppointmentMedicalController:ControllerBase
     {
         var typeAppointmentCreated = await _typeAppointmentService.createTypeAppointmentMedical(typeAppointmentMedical);
         return CreatedAtAction("createAppointment", typeAppointmentCreated);
-        //falta finalizar e declarar as rotas nos arquivos de service
+        
     }
 }

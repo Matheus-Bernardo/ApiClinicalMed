@@ -25,10 +25,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 //services
 builder.Services.AddApplicationPatientServices();
-builder.Services.AddScoped<LoginService>();
-builder.Services.AddScoped<IPasswordHasher,PasswordHasher>();
+builder.Services.AddApplicationValidationServices();
+builder.Services.AddApplicationConsultationServices();
+builder.Services.AddApplicationTypeConsultationServices();
 builder.Services.AddScoped<FindUser>();
+builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<IJwtService,JwtService>();
+builder.Services.AddScoped<IPasswordHasher,PasswordHasher>();
 builder.Services.AddJwtCollection(builder.Configuration);
 
 //Ccontrollers and swagger
