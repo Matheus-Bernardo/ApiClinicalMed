@@ -1,10 +1,17 @@
-﻿namespace WebApplication1.DTOS.Consultation;
+﻿using WebApplication1.Enums;
+
+namespace WebApplication1.DTOS.Consultation;
 
 public class ResponseCreateConsultation
 {
-    public required int doctorId {get; set;}
-    public required int patientId {get; set;}
+    public string emailPatient { get; set; }
+    public required string namePatient {get; set;}
+    
+    public string emailDoctor { get; set; }
+    public required string nameDoctor {get; set;}
     public required DateTime consultationTime {get; set;}
     public string? consultationLink { get; set; }
+    public StatusConsultation status { get; set; }
+    public DateTime createdAt { get; set; }
     
 }

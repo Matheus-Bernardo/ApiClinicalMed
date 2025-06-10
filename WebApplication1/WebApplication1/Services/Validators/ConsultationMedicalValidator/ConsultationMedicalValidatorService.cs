@@ -18,7 +18,6 @@ public class ConsultationMedicalValidatorService:IConsultationMedicalValidatorSe
             .AnyAsync(medicalConsultation =>
                 medicalConsultation.doctorId == idDoctor &&
                 medicalConsultation.consultationTime == suggestedDateTime);
-         Console.WriteLine("RESULTADO:", deubom);
          return deubom;
     }
 

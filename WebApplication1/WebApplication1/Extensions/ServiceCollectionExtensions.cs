@@ -4,6 +4,7 @@ using WebApplication1.Repositories.PatientRepository;
 using WebApplication1.Repositories.TypeAppointmentMedicalRepository;
 using WebApplication1.Services.ConsultationService;
 using WebApplication1.Services.DoctorService;
+using WebApplication1.Services.EmailService;
 using WebApplication1.Services.PatientService;
 using WebApplication1.Services.TypeAppointmentMedicalService;
 using WebApplication1.Services.Validators.AppointmentMedicalValidator;
@@ -58,6 +59,8 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IConsultationService, ConsultationService>();
         services.AddScoped<IConsultationRepository,ConsultationRepository>();
+
+        services.AddScoped<IEmailService, EmailService>();
         
         return services;
     }
