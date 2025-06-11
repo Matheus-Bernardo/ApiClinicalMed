@@ -37,6 +37,8 @@ public class EmailService: IEmailService
         email.Subject = "Telenfermagem - Consulta Marcada";
         email.Body = new TextPart("html"){Text = messagehtml}; 
 
+        Console.WriteLine($"emailPatient: {appointmentEmail.emailPatient}");
+        Console.WriteLine($"emailDoctor: {appointmentEmail.emailDoctor}");
 
         using var smtp = new SmtpClient();
         await smtp.ConnectAsync("smtp.gmail.com", 587,MailKit.Security.SecureSocketOptions.StartTls);
