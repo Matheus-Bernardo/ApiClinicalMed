@@ -26,6 +26,8 @@ public class EmailService: IEmailService
 
         var messagehtml = templateHtml
             .Replace("{namePatient}", appointmentEmail.namePatient)
+            .Replace("{consultationLink}",appointmentEmail.consultationLink)
+            .Replace("{consultationTime}", appointmentEmail.consultationTime.ToString("dd/MM/yyyy HH:mm"))
             .Replace("{nameDoctor}", appointmentEmail.nameDoctor);
         
         var email = new MimeMessage();
