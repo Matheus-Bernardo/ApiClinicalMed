@@ -21,7 +21,7 @@ public class EmailService: IEmailService
         var sender = _configuration["EmailSettings:sender"];
         var password = _configuration["EmailSettings:password"];
         
-        var templatePath = Path.Combine(_env.ContentRootPath, "Services/EmailService/templates", "AppointmentEmail.html");
+        var templatePath = Path.Combine(AppContext.BaseDirectory, "Services/EmailService/templates", "AppointmentEmail.html");
         var templateHtml = await File.ReadAllTextAsync(templatePath);
 
         var messagehtml = templateHtml
