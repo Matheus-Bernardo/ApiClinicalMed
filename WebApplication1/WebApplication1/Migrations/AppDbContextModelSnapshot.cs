@@ -23,6 +23,71 @@ namespace WebApplication1.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("WebApplication1.Core.Entities.MedicalConsultation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("agreementDiscount")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("consultationLink")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("consultationTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("doctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("justificationUpdate")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("patientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("typeAppointmentMedical")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("updatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MedicalConsultation");
+                });
+
+            modelBuilder.Entity("WebApplication1.Core.Entities.TypeAppointmentMedical", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("value")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("id");
+
+                    b.ToTable("TypeAppointmentMedical");
+                });
+
             modelBuilder.Entity("WebApplication1.Core.Entities.User", b =>
                 {
                     b.Property<int>("Id")
