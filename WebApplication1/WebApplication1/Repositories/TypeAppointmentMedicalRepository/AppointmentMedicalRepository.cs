@@ -1,4 +1,5 @@
-﻿using WebApplication1.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication1.Core.Entities;
 using WebApplication1.Infrastructure.Data;
 
 namespace WebApplication1.Repositories.TypeAppointmentMedicalRepository;
@@ -17,5 +18,10 @@ public class AppointmentMedicalRepository:IAppointmentMedicalRepository
         await _context.TypeAppointmentMedical.AddAsync(typeAppointmentMedical);
         await _context.SaveChangesAsync();
         return typeAppointmentMedical;
+    }
+
+    public async Task<List<TypeAppointmentMedical?>> GetAppointment()
+    {
+        return await _context.TypeAppointmentMedical.ToListAsync();
     }
 }

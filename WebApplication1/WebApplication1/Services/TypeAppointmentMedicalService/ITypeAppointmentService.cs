@@ -5,5 +5,6 @@ namespace WebApplication1.Services.TypeAppointmentMedicalService;
 public interface ITypeAppointmentService
 {
     Task<TypeAppointmentMedical> createTypeAppointmentMedical(TypeAppointmentMedical typeAppointmentMedical);
+    Task<List<TypeAppointmentMedical>> getTypeAppointmentMedical();
     
 }

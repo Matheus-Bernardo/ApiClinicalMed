@@ -10,7 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<Doctor> Doctor { get; set; }
     public DbSet<Patient> Patient { get; set; }
     public DbSet<MedicalConsultation> MedicalConsultation { get; set; }
-    public DbSet<TypeAppointmentMedical> TypeAppointmentMedical { get; set; }
+    public DbSet<TypeAppointmentMedical?> TypeAppointmentMedical { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

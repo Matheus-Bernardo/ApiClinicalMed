@@ -25,4 +25,11 @@ public class TypeAppointmentService:ITypeAppointmentService
         return appointmentCreated;
         
     }
+
+    public async Task<List<TypeAppointmentMedical>> getTypeAppointmentMedical()
+    {
+        var typesAppointment = await _appointmentMedicalRepository.GetAppointment();
+        return typesAppointment.ToList();
+        
+    }
 }
