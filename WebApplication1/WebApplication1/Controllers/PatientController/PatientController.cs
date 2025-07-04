@@ -38,8 +38,6 @@ public class PatientController : ControllerBase
         await _patientService.DeletePatient(id);
         return NoContent();
     }
-    
-    [Authorize(Roles = "doctor")]
     [HttpGet]
     public async Task<ActionResult<List<PatientResponseDto>>> GetAllPatients()
     {

@@ -15,13 +15,21 @@ public class ConsultationMedicalController:ControllerBase
     {
         _consultationService = consultationService;
     }
-
-    [Authorize(Roles = "doctor")]
+    
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> createConsultationMedical([FromBody] CreateConsultationDto consultation)
     {
         var consultationMedicalCreated = await _consultationService.createConsultation(consultation);
         return CreatedAtAction("createConsultationMedical", consultationMedicalCreated);
         
+    }
+    
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetAllConsultationMedical()
+    {
+        var consults = await _consultationService.GetMedicalConsultations();
+        return Ok(consults);
     }
 }

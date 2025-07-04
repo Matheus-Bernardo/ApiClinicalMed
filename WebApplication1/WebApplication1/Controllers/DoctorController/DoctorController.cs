@@ -39,7 +39,6 @@ public class DoctorController : ControllerBase
         return NoContent();
     }
     
-    [Authorize(Roles = "doctor")]
     [HttpGet]
     public async Task<ActionResult<List<DoctorResponseDto>>> GetAllDoctors()
     {

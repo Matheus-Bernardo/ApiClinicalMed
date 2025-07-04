@@ -10,7 +10,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        policy.SetIsOriginAllowed(origin => origin == "https://clinicalmedweb.web.app")
+        policy.SetIsOriginAllowed(origin => origin == "https://clinicalmedweb.web.app" || origin.StartsWith("http://localhost"))
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();

@@ -24,4 +24,11 @@ public class AppointmentMedicalController:ControllerBase
         return CreatedAtAction("createAppointment", typeAppointmentCreated);
         
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllAppointments()
+    {
+        var getAppointments = await _typeAppointmentService.getTypeAppointmentMedical();
+        return Ok(getAppointments);
+    }
 }
