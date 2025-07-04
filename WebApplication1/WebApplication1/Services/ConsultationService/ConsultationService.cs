@@ -92,4 +92,10 @@ public class ConsultationService: IConsultationService
         
         return response;
     }
+
+    public async Task<List<MedicalConsultation>> GetMedicalConsultations()
+    {
+        var consults = await _consultationRepository.GetConsults();
+        return consults;
+    }
 }
