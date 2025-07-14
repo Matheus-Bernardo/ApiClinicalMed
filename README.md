@@ -59,4 +59,4 @@ Matheus Henrique Lourenço Bernardo
   [https://www.linkedin.com/in/matheus-bernardo-b20796196/]
 
 - **Email:**  
-  [mhlbernaroo0402@gmail.com]
+  [mhlbernardo0402@gmail.com]
