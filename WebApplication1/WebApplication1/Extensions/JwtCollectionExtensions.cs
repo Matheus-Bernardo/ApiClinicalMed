@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 namespace WebApplication1.Extensions;
@@ -25,7 +26,9 @@ public static class JwtCollectionExtensions
                     ValidAudience = configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)
-                    )
+                    ),
+                    RoleClaimType = ClaimTypes.Role
+                    
                 };
                 options.Events = new JwtBearerEvents
                 {
