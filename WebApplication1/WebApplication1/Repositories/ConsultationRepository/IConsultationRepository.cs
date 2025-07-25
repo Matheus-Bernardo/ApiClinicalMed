@@ -6,5 +6,6 @@ public interface IConsultationRepository
 {
     Task<MedicalConsultation?> CreateConsultation(MedicalConsultation medicalConsultation);
     Task<List<MedicalConsultation>> GetConsults();
+    Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId);
 
 }

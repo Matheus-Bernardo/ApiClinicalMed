@@ -24,4 +24,11 @@ public class ConsultationRepository: IConsultationRepository
     {
         return await _context.MedicalConsultation.ToListAsync();
     }
+
+    public async Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId)
+    {
+        return await _context.MedicalConsultation
+            .Where(consultMedical => consultMedical.doctorId == userId || consultMedical.patientId == userId)
+            .ToListAsync();
+    }
 }

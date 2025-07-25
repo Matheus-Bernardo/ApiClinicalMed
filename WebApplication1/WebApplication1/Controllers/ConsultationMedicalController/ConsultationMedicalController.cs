@@ -32,4 +32,24 @@ public class ConsultationMedicalController:ControllerBase
         var consults = await _consultationService.GetMedicalConsultations();
         return Ok(consults);
     }
+
+    [Authorize]
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetConsultationByUser([FromRoute] int userId)
+    {
+        try
+        {
+            var consultsUser = await _consultationService.GetMedicalConsultationsByUserId(userId);
+            return Ok(consultsUser);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { error = "Erro interno no servidor" });
+        }
+    }
+
 }

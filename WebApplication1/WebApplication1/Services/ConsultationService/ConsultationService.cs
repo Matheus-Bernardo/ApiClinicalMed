@@ -95,7 +95,24 @@ public class ConsultationService: IConsultationService
 
     public async Task<List<MedicalConsultation>> GetMedicalConsultations()
     {
-        var consults = await _consultationRepository.GetConsults();
-        return consults;
+        return  await _consultationRepository.GetConsults();
+    }
+
+    public async Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId)
+    {
+
+        try
+        {
+            if(await _findUser.FindUserById(userId) == null)
+                throw new ArgumentException("User not found");
+       
+            return await _consultationRepository.GetMedicalConsultationsByUserId(userId);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Error while getting consultations by user");
+        }
+       
+       
     }
 }
