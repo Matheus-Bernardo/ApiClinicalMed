@@ -7,4 +7,5 @@ public interface IConsultationService
 {
     Task<ResponseCreateConsultation> createConsultation(CreateConsultationDto createConsultationDto);
     Task<List<MedicalConsultation>> GetMedicalConsultations();
+    Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId);
 }
