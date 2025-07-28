@@ -98,21 +98,19 @@ public class ConsultationService: IConsultationService
         return  await _consultationRepository.GetConsults();
     }
 
-    public async Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId)
+    public async Task<List<ResponseConsultByUser>> GetMedicalConsultationsByUserId(int userId)
     {
-
-        try
+        var consults = await _consultationRepository.GetMedicalConsultationsByUserId(userId);
+        
+        return consults.Select(c => new ResponseConsultByUser
         {
-            if(await _findUser.FindUserById(userId) == null)
-                throw new ArgumentException("User not found");
-       
-            return await _consultationRepository.GetMedicalConsultationsByUserId(userId);
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Error while getting consultations by user");
-        }
-       
+            typeAppointment = c.AppointmentType.description,
+            doctorName = c.Doctor.firstName + " " + c.Doctor.lastName,
+            patientName = c.Patient.firstName + " " + c.Patient.lastName,
+            consultationTime = c.consultationTime,
+            consultationLink = c.consultationLink,
+            status = c.status.ToString(),
+        }).ToList();
        
     }
 }

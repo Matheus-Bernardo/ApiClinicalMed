@@ -28,7 +28,11 @@ public class ConsultationRepository: IConsultationRepository
     public async Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId)
     {
         return await _context.MedicalConsultation
-            .Where(consultMedical => consultMedical.doctorId == userId || consultMedical.patientId == userId)
+            .Include(mc => mc.Doctor)
+            .Include(mc => mc.Patient)
+            .Include(mc => mc.AppointmentType)
+            .Where(mc => mc.doctorId == userId || mc.patientId == userId)
             .ToListAsync();
     }
+
 }
