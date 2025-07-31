@@ -17,6 +17,25 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>().UseTptMappingStrategy();
         modelBuilder.Entity<Doctor>().ToTable("Doctor");
         modelBuilder.Entity<Patient>().ToTable("Patient");
+
+        modelBuilder.Entity<MedicalConsultation>()
+            .HasOne(mc => mc.Doctor)
+            .WithMany()
+            .HasForeignKey(mc => mc.doctorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<MedicalConsultation>()
+            .HasOne(mc => mc.Patient)
+            .WithMany()
+            .HasForeignKey(mc => mc.patientId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<MedicalConsultation>()
+            .HasOne(mc => mc.AppointmentType)
+            .WithMany()
+            .HasForeignKey(mc => mc.typeAppointmentMedical)
+            .OnDelete(DeleteBehavior.Restrict);
     }
+
 
 }
