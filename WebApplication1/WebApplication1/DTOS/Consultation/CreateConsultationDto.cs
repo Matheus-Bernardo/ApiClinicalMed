@@ -12,4 +12,5 @@ public class CreateConsultationDto
     public string? consultationLink { get; set; }
     public double? agreementDiscount { get; set; } 
     
+    
 }

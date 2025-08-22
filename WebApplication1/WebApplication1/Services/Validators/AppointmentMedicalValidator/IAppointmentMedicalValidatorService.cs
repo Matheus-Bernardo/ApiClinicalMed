@@ -2,6 +2,6 @@
 
 public interface IAppointmentMedicalValidatorService
 {
-    Task<bool> AppointmentMedicalExists(int id);
+    Task<bool> AppointmentMedicalExists(int appointmentId);
     
 }

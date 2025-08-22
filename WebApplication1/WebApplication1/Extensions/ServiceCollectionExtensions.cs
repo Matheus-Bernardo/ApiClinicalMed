@@ -1,12 +1,14 @@
 ﻿using WebApplication1.Repositories.ConsultationRepository;
 using WebApplication1.Repositories.DoctorRepository;
 using WebApplication1.Repositories.PatientRepository;
+using WebApplication1.Repositories.PrescriptionRepository;
 using WebApplication1.Repositories.TypeAppointmentMedicalRepository;
 using WebApplication1.Services.ConsultationService;
 using WebApplication1.Services.DoctorService;
 using WebApplication1.Services.EmailService;
 using WebApplication1.Services.MettingService;
 using WebApplication1.Services.PatientService;
+using WebApplication1.Services.PrescriptionService;
 using WebApplication1.Services.TypeAppointmentMedicalService;
 using WebApplication1.Services.Validators.AppointmentMedicalValidator;
 using WebApplication1.Services.Validators.ConsultationMedicalValidator;
@@ -24,7 +26,6 @@ public static class ServiceCollectionExtensions
         //repositories
         services.AddScoped<IDoctorRepository, DoctorRepository>();
         services.AddScoped<IPatientRepository, PatientRepository>();
-        
         
         //services
         services.AddScoped<IDoctorService, DoctorService>();
@@ -63,6 +64,14 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IMeetingService, MeetingService>();
+        
+        return services;
+    }
+
+    public static IServiceCollection AddApplicationPrescriptionServices(this IServiceCollection services)
+    {
+        services.AddScoped<IPrescriptionService, PrescriptionService>();
+        services.AddScoped<IPrescriptionRepository,PrescriptionRepository >();
         
         return services;
     }

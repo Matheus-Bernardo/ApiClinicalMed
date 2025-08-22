@@ -26,9 +26,8 @@ public class PatientController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdatePatient([FromBody] UpdatePatientDto  patientDto,  int id)
     {
-        var patientUpdated = await _patientService.UpdatePatient(patientDto, id);
+        await _patientService.UpdatePatient(patientDto, id);
         return Ok("Patient Updated");
-
     }
     
     [Authorize]

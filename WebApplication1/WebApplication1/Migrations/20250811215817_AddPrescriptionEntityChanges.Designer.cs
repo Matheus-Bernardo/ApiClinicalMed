@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication1.Infrastructure.Data;
@@ -12,9 +13,11 @@ using WebApplication1.Infrastructure.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250811215817_AddPrescriptionEntityChanges")]
+    partial class AddPrescriptionEntityChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,6 +71,14 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("doctorId");
+
+                    b.HasIndex("idPrescription");
+
+                    b.HasIndex("patientId");
+
+                    b.HasIndex("typeAppointmentMedical");
+
                     b.ToTable("MedicalConsultation");
                 });
 
@@ -82,9 +93,8 @@ namespace WebApplication1.Migrations
                     b.Property<DateTime>("createdAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("crmDoctor")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("crmDoctor")
+                        .HasColumnType("integer");
 
                     b.Property<string>("doctorName")
                         .IsRequired()
@@ -247,6 +257,40 @@ namespace WebApplication1.Migrations
                     b.ToTable("Patient", (string)null);
                 });
 
+            modelBuilder.Entity("WebApplication1.Core.Entities.MedicalConsultation", b =>
+                {
+                    b.HasOne("WebApplication1.Core.Entities.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("doctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Core.Entities.Prescription", "Prescription")
+                        .WithMany("MedicalConsultations")
+                        .HasForeignKey("idPrescription")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("WebApplication1.Core.Entities.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("patientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Core.Entities.TypeAppointmentMedical", "AppointmentType")
+                        .WithMany()
+                        .HasForeignKey("typeAppointmentMedical")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppointmentType");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Prescription");
+                });
+
             modelBuilder.Entity("WebApplication1.Core.Entities.Doctor", b =>
                 {
                     b.HasOne("WebApplication1.Core.Entities.User", null)
@@ -263,6 +307,11 @@ namespace WebApplication1.Migrations
                         .HasForeignKey("WebApplication1.Core.Entities.Patient", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApplication1.Core.Entities.Prescription", b =>
+                {
+                    b.Navigation("MedicalConsultations");
                 });
 #pragma warning restore 612, 618
         }

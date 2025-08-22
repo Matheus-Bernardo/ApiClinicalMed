@@ -27,6 +27,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddApplicationPatientServices();
 builder.Services.AddApplicationValidationServices();
 builder.Services.AddApplicationConsultationServices();
+builder.Services.AddApplicationPrescriptionServices();
 builder.Services.AddApplicationTypeConsultationServices();
 builder.Services.AddScoped<FindUser>();
 builder.Services.AddScoped<LoginService>();

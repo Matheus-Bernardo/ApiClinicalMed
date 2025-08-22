@@ -2,3 +2,4 @@
 bin
 obj
 ../WebApplication1.Tests/
+../.sonarqube

@@ -99,6 +99,12 @@ public class DoctorService: IDoctorService
         if(await _emailValidatorService.EmailAlreadyRegistered(updateDoctorDto.email))
             throw new ArgumentException($"Email {updateDoctorDto.email} is already registered");
 
+        
+        if (updateDoctorDto.password != null)
+        {
+           updateDoctorDto.password = _passwordHasher.HashPassword(updateDoctorDto.password);
+        }
+
         try
         {
             existingDoctor.firstName = updateDoctorDto.firstName??existingDoctor.firstName;

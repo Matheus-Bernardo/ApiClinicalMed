@@ -104,13 +104,52 @@ public class ConsultationService: IConsultationService
         
         return consults.Select(c => new ResponseConsultByUser
         {
-            typeAppointment = c.AppointmentType.description,
-            doctorName = c.Doctor.firstName + " " + c.Doctor.lastName,
-            patientName = c.Patient.firstName + " " + c.Patient.lastName,
+            typeAppointment = c.typeAppointmentMedical.ToString(),
             consultationTime = c.consultationTime,
             consultationLink = c.consultationLink,
             status = c.status.ToString(),
         }).ToList();
        
+    }
+
+    public async Task<MedicalConsultation> finishMedicalConsultationWithPrescription(FinishConsultationDto finishConsultationDto)
+    {
+        var findConsult = await _consultationRepository.GetConsultById(finishConsultationDto.idMedicalConsultation); 
+        if ( findConsult==null)
+        {
+            throw new ArgumentException("Medical consultation not found");
+        }
+
+        try{
+            findConsult.updatedAt = DateTime.UtcNow;
+            findConsult.status = finishConsultationDto.status;
+            findConsult.idPrescription = finishConsultationDto.prescriptionId;
+            await _consultationRepository.finishConsultationUpdate(findConsult);
+            
+        }catch (Exception e){throw new ArgumentException("update failure");}
+        
+        
+        
+        return findConsult;
+
+    }
+
+    public async Task<MedicalConsultation> finishMedicalConsultationWithoutPrescription(FinishConsultationDto finishConsultationDto)
+    {
+        var findConsult = await _consultationRepository.GetConsultById(finishConsultationDto.idMedicalConsultation); 
+        if ( findConsult==null)
+        {
+            throw new ArgumentException("Medical consultation not found");
+        }
+
+        try{
+            findConsult.idPrescription = null;
+            findConsult.updatedAt = DateTime.UtcNow;
+            findConsult.status = finishConsultationDto.status;
+            await _consultationRepository.finishConsultationUpdate(findConsult);
+            
+        }catch (Exception e){throw new ArgumentException("update failure");}
+        
+        return findConsult;
     }
 }
