@@ -7,6 +7,7 @@ namespace WebApplication1.Controllers.HealthApiController;
 public class HealthController: ControllerBase
 {
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult HealthCheck()
     {
         return Ok("API ativa");

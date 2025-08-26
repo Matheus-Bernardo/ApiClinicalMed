@@ -48,7 +48,7 @@ public class ConsultationMedicalController:ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { error = "Erro interno no servidor" });
+            return StatusCode(500, new { error = "Erro interno no servidor" ,ex.Message });
         }
     }
 

@@ -12,8 +12,8 @@ public class AppointmentMedicalValidatorService: IAppointmentMedicalValidatorSer
         _dbContext = dbContext;
     }
     
-    public async Task<bool> AppointmentMedicalExists(int appointmentId)
+    public async Task<bool> AppointmentMedicalExists(int id)
     {
-       return await _dbContext.TypeAppointmentMedical.AnyAsync(appointment => appointment.id == appointmentId);
+       return await _dbContext.TypeAppointmentMedical.AnyAsync(appointment => appointment.id == id);
     }
 }

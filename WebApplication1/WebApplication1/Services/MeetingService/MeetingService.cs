@@ -21,7 +21,7 @@ public class MeetingService : IMeetingService
         return $"consult_{paciente}_{medico}_{dataHora}";
     }
 
-    private string Sanitize(string input)
+    private static string Sanitize(string input)
     {
         return string.Concat(input.Where(char.IsLetterOrDigit));
     }

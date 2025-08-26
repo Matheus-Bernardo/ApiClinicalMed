@@ -183,7 +183,7 @@ public class PatientService : IPatientService
         }
         catch (Exception e)
         {
-            throw new Exception("Erro do servidor:"+ e.Message);
+            throw new ArgumentException("Erro do servidor:"+ e.Message);
         }
     }
 }

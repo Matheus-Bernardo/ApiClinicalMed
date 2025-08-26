@@ -51,4 +51,4 @@ app.UseAuthorization();
 app.UseGlobalExceptionHandler();
 
 app.MapControllers();
-app.Run();
+await app.RunAsync();

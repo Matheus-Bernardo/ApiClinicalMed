@@ -17,7 +17,7 @@ public class EmailService: IEmailService
         _logger = logger;
     }
     
-    public async Task SendAppointmentEmail(ResponseCreateConsultation appointmentEmail)
+    public async Task SendAppointmentEmail(ResponseCreateConsultation emailDto)
     {
         var sender = _configuration["EmailSettings:sender"];
         var password = _configuration["EmailSettings:password"];
@@ -28,20 +28,20 @@ public class EmailService: IEmailService
         var templateHtml = await File.ReadAllTextAsync(templatePath);
         
         var messagehtml = templateHtml
-            .Replace("{namePatient}", appointmentEmail.namePatient)
-            .Replace("{consultationLink}",appointmentEmail.consultationLink)
-            .Replace("{consultationTime}", appointmentEmail.consultationTime.ToString("dd/MM/yyyy HH:mm"))
-            .Replace("{nameDoctor}", appointmentEmail.nameDoctor);
+            .Replace("{namePatient}", emailDto.namePatient)
+            .Replace("{consultationLink}",emailDto.consultationLink)
+            .Replace("{consultationTime}", emailDto.consultationTime.ToString("dd/MM/yyyy HH:mm"))
+            .Replace("{nameDoctor}", emailDto.nameDoctor);
         
         var email = new MimeMessage();
         email.From.Add(new MailboxAddress("Telenfermagem",sender));
-        email.To.Add(MailboxAddress.Parse(appointmentEmail.emailPatient));
-        email.To.Add(MailboxAddress.Parse(appointmentEmail.emailDoctor));
+        email.To.Add(MailboxAddress.Parse(emailDto.emailPatient));
+        email.To.Add(MailboxAddress.Parse(emailDto.emailDoctor));
         email.Subject = "Telenfermagem - Consulta Marcada";
         email.Body = new TextPart("html"){Text = messagehtml}; 
 
-        Console.WriteLine($"emailPatient: {appointmentEmail.emailPatient}");
-        Console.WriteLine($"emailDoctor: {appointmentEmail.emailDoctor}");
+        Console.WriteLine($"emailPatient: {emailDto.emailPatient}");
+        Console.WriteLine($"emailDoctor: {emailDto.emailDoctor}");
 
         using var smtp = new SmtpClient();
         await smtp.ConnectAsync("smtp.gmail.com", 587,MailKit.Security.SecureSocketOptions.StartTls);

@@ -37,35 +37,35 @@ public class DoctorService: IDoctorService
 
     
     
-    public async Task<DoctorResponseDto> CreateDoctor(CreateDoctorDto doctorDto)
+    public async Task<DoctorResponseDto> CreateDoctor(CreateDoctorDto createDoctorDto)
     {
-        if (await _emailValidatorService.EmailAlreadyRegistered(doctorDto.email))
-            throw new ArgumentException($"Email {doctorDto.email} is already registered");
+        if (await _emailValidatorService.EmailAlreadyRegistered(createDoctorDto.email))
+            throw new ArgumentException($"Email {createDoctorDto.email} is already registered");
             
-        if( await _cpfValidatorService.CpfAlreadyRegistered(doctorDto.cpf))
-            throw new ArgumentException($"CPF {doctorDto.cpf} is already registered");
+        if( await _cpfValidatorService.CpfAlreadyRegistered(createDoctorDto.cpf))
+            throw new ArgumentException($"CPF {createDoctorDto.cpf} is already registered");
             
-        if( await _crmValidator.CrmAlreadyRegistered(doctorDto.crm))
-            throw new ArgumentException($"Crm {doctorDto.crm} is already registered");
+        if( await _crmValidator.CrmAlreadyRegistered(createDoctorDto.crm))
+            throw new ArgumentException($"Crm {createDoctorDto.crm} is already registered");
         
-        var passwordHash = _passwordHasher.HashPassword(doctorDto.password);
+        var passwordHash = _passwordHasher.HashPassword(createDoctorDto.password);
 
         var newDoctor = new Doctor
         {
-            firstName = doctorDto.firstName,
-            lastName = doctorDto.lastName,
-            cpf = doctorDto.cpf,
-            birthDate = doctorDto.birthDate,
-            phone = doctorDto.phone,
-            street = doctorDto.street,
-            district = doctorDto.district,
-            city = doctorDto.city,
-            complement = doctorDto.complement,
+            firstName = createDoctorDto.firstName,
+            lastName = createDoctorDto.lastName,
+            cpf = createDoctorDto.cpf,
+            birthDate = createDoctorDto.birthDate,
+            phone = createDoctorDto.phone,
+            street = createDoctorDto.street,
+            district = createDoctorDto.district,
+            city = createDoctorDto.city,
+            complement = createDoctorDto.complement,
             typeUser = TypeUser.doctor,
-            email = doctorDto.email,
+            email = createDoctorDto.email,
             password = passwordHash,
-            crm = doctorDto.crm,
-            areaSpecialty = doctorDto.areaSpecialty,
+            crm = createDoctorDto.crm,
+            areaSpecialty = createDoctorDto.areaSpecialty,
             createdAt = DateTime.UtcNow,
             updatedAt = null
         };
@@ -187,7 +187,7 @@ public class DoctorService: IDoctorService
         }
         catch (Exception e)
         {
-            throw new Exception("Erro do servidor:"+ e.Message);
+            throw new ArgumentException("Erro do servidor:"+ e.Message);
         }
     }
 }

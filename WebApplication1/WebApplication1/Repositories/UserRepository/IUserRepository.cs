@@ -4,5 +4,5 @@ namespace WebApplication1.Repositories.UserRepository;
 
 public interface IUserRepository
 {
-    Task<User?> GetUserById(int id);
+    Task<User?> GetUserById(int idUser);
 }

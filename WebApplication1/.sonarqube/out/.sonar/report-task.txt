@@ -1,0 +1,6 @@
+projectKey=apiClinical
+serverUrl=http://localhost:32768
+serverVersion=25.7.0.110598
+dashboardUrl=http://localhost:32768/dashboard?id=apiClinical
+ceTaskId=b9ab4654-71ba-401d-ae32-209a21ed2f18
+ceTaskUrl=http://localhost:32768/api/ce/task?id=b9ab4654-71ba-401d-ae32-209a21ed2f18

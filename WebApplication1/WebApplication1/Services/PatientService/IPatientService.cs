@@ -8,7 +8,7 @@ public interface IPatientService
     Task<List<PatientResponseDto>> GetAllPatient();
     Task<PatientResponseDto?> GetPatientById(int id);
     Task<bool> DeletePatient(int id);
-    Task<PatientResponseDto> CreatePatient(CreatePatientDto patient);
+    Task<PatientResponseDto> CreatePatient(CreatePatientDto patientDto);
     
     Task<UpdatePatientDto> UpdatePatient(UpdatePatientDto patient, int id);
     
