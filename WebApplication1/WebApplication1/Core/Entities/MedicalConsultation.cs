@@ -16,5 +16,7 @@ public class MedicalConsultation
     public required DateTime createdAt { get; set; } = DateTime.Now;
     public required DateTime? updatedAt { get; set; } = null;
     public int? idPrescription { get; set; }
+    public Doctor Doctor { get; set; }
+    public Patient Patient { get; set; }
       
 }

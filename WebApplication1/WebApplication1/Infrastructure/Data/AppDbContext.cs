@@ -19,7 +19,15 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Doctor>().ToTable("Doctor");
         modelBuilder.Entity<Patient>().ToTable("Patient");
 
-       
+        modelBuilder.Entity<MedicalConsultation>()
+            .HasOne(mc => mc.Doctor)
+            .WithMany()
+            .HasForeignKey(mc => mc.doctorId);
+        
+        modelBuilder.Entity<MedicalConsultation>()
+            .HasOne(mc => mc.Patient)
+            .WithMany()
+            .HasForeignKey(mc => mc.patientId);
         
     }
 

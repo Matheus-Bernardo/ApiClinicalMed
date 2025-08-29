@@ -108,6 +108,8 @@ public class ConsultationService: IConsultationService
             consultationTime = c.consultationTime,
             consultationLink = c.consultationLink,
             status = c.status.ToString(),
+            doctorName = c.Doctor.firstName + " " + c.Doctor.lastName,
+            patientName = c.Patient.firstName + " " + c.Patient.lastName,
         }).ToList();
        
     }
