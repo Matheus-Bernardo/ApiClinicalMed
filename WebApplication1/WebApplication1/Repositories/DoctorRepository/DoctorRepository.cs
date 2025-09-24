@@ -25,9 +25,8 @@ public class DoctorRepository : IDoctorRepository
     public async Task<bool> UpdateDoctor(Doctor doctor)
     {
         _context.Doctor.Update(doctor);
-        var result = await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         return true;
-
     }
 
     public async Task<List<Doctor>> getAllDoctors()

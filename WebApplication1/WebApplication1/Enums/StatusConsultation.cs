@@ -2,7 +2,7 @@
 
 public enum StatusConsultation
 {
-    CONFIRMED = 1,
+    DONE = 1,
     CANCELED = 2,
     PENDING = 3,
 }

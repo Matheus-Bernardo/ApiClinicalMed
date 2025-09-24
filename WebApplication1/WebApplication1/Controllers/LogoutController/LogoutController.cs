@@ -18,7 +18,6 @@ public class LogoutController:ControllerBase
             SameSite = SameSiteMode.None,
             Expires = DateTimeOffset.UtcNow.AddDays(-1)
         });
-
         return Ok(new { message = "Logout efetuado com sucesso" });
     }   
 }

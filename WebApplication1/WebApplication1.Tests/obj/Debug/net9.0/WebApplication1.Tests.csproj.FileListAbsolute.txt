@@ -170,3 +170,7 @@ D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\obj\Debug\net9
 D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\obj\Debug\net9.0\WebApplication1.Tests.genruntimeconfig.cache
 D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\obj\Debug\net9.0\ref\WebApplication1.Tests.dll
 D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\bin\Debug\net9.0\Services\EmailService\templates\AppointmentEmail.html
+D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\bin\Debug\net9.0\MailKit.dll
+D:\FreeLance\ApiClinicalMed\WebApplication1\WebApplication1.Tests\bin\Debug\net9.0\MimeKit.dll

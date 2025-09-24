@@ -3,8 +3,10 @@ using WebApplication1.Extensions;
 using WebApplication1.Infrastructure.Data;
 using WebApplication1.Services.LoginService;
 using WebApplication1.Utils;
+using QuestPDF.Infrastructure; 
 
 var builder = WebApplication.CreateBuilder(args);
+QuestPDF.Settings.License = LicenseType.Community;
 
 builder.Services.AddCors(options =>
 {
@@ -27,6 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddApplicationPatientServices();
 builder.Services.AddApplicationValidationServices();
 builder.Services.AddApplicationConsultationServices();
+builder.Services.AddApplicationPrescriptionServices();
 builder.Services.AddApplicationTypeConsultationServices();
 builder.Services.AddScoped<FindUser>();
 builder.Services.AddScoped<LoginService>();
@@ -50,4 +53,4 @@ app.UseAuthorization();
 app.UseGlobalExceptionHandler();
 
 app.MapControllers();
-app.Run();
+await app.RunAsync();

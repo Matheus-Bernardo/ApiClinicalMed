@@ -48,8 +48,36 @@ public class ConsultationMedicalController:ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { error = "Erro interno no servidor" });
+            return StatusCode(500, new { error = "Erro interno no servidor" ,ex.Message });
         }
     }
 
+    [Authorize]
+    [HttpPut("finishWithPrescription")]
+    public async Task<IActionResult> finishConsultationWithPrescription(FinishConsultationDto consultation)
+    {
+        try
+        {
+            var consultFinish = await _consultationService.finishMedicalConsultationWithPrescription(consultation);
+            return Ok(consultFinish);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, new { error = e.Message });
+        }
+    }
+    [Authorize]
+    [HttpPut("finishWithoutPrescription")]
+    public async Task<IActionResult> finishConsultationWithoutPrescription(FinishConsultationDto consultation)
+    {
+        try
+        {
+            var consultFinish = await _consultationService.finishMedicalConsultationWithoutPrescription(consultation);
+            return Ok(consultFinish);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, new { error = e.Message });
+        }
+    }
 }

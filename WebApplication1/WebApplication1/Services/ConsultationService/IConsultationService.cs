@@ -5,7 +5,9 @@ namespace WebApplication1.Services.ConsultationService;
 
 public interface IConsultationService
 {
-    Task<ResponseCreateConsultation> createConsultation(CreateConsultationDto createConsultationDto);
     Task<List<MedicalConsultation>> GetMedicalConsultations();
     Task<List<ResponseConsultByUser>> GetMedicalConsultationsByUserId(int userId);
+    Task<ResponseCreateConsultation> createConsultation(CreateConsultationDto createConsultationDto);
+    Task<MedicalConsultation> finishMedicalConsultationWithPrescription(FinishConsultationDto finishConsultationDto); 
+    Task<MedicalConsultation> finishMedicalConsultationWithoutPrescription(FinishConsultationDto finishConsultationDto);
 }

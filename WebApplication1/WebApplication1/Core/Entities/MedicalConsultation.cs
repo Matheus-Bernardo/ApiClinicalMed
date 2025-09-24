@@ -15,10 +15,8 @@ public class MedicalConsultation
     public string justificationUpdate { get; set; } = null;
     public required DateTime createdAt { get; set; } = DateTime.Now;
     public required DateTime? updatedAt { get; set; } = null;
-    
-    
-    public Doctor Doctor { get; set; } = null!;
-    public Patient Patient { get; set; } = null!;
-    public TypeAppointmentMedical AppointmentType { get; set; } = null!;
-    
+    public int? idPrescription { get; set; }
+    public Doctor Doctor { get; set; }
+    public Patient Patient { get; set; }
+      
 }

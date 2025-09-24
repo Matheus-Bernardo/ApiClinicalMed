@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     public DbSet<User?> User { get; set; }
     public DbSet<Doctor> Doctor { get; set; }
     public DbSet<Patient> Patient { get; set; }
+    public DbSet<Prescription> Prescription { get; set; }
     public DbSet<MedicalConsultation> MedicalConsultation { get; set; }
     public DbSet<TypeAppointmentMedical?> TypeAppointmentMedical { get; set; }
     
@@ -21,20 +22,13 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<MedicalConsultation>()
             .HasOne(mc => mc.Doctor)
             .WithMany()
-            .HasForeignKey(mc => mc.doctorId)
-            .OnDelete(DeleteBehavior.Restrict);
-
+            .HasForeignKey(mc => mc.doctorId);
+        
         modelBuilder.Entity<MedicalConsultation>()
             .HasOne(mc => mc.Patient)
             .WithMany()
-            .HasForeignKey(mc => mc.patientId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<MedicalConsultation>()
-            .HasOne(mc => mc.AppointmentType)
-            .WithMany()
-            .HasForeignKey(mc => mc.typeAppointmentMedical)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(mc => mc.patientId);
+        
     }
 
 

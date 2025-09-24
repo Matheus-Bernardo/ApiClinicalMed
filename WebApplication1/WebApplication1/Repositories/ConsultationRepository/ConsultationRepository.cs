@@ -25,14 +25,28 @@ public class ConsultationRepository: IConsultationRepository
         return await _context.MedicalConsultation.ToListAsync();
     }
 
-    public async Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId)
+    public async Task<MedicalConsultation?> GetConsultById(int consultId)
     {
         return await _context.MedicalConsultation
             .Include(mc => mc.Doctor)
             .Include(mc => mc.Patient)
-            .Include(mc => mc.AppointmentType)
+            .FirstOrDefaultAsync(mc => mc.Id == consultId);
+    }
+
+    public async Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId)
+    {
+        return await _context.MedicalConsultation
+            .Include(mc => mc.Doctor) 
+            .Include(mc=> mc.Patient)
             .Where(mc => mc.doctorId == userId || mc.patientId == userId)
             .ToListAsync();
     }
 
+
+    public async Task<bool> finishConsultationUpdate(MedicalConsultation medicalConsultation)
+    {
+        _context.MedicalConsultation.Update(medicalConsultation);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

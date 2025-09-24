@@ -47,6 +47,9 @@ namespace WebApplication1.Migrations
                     b.Property<int>("doctorId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("idPrescription")
+                        .HasColumnType("integer");
+
                     b.Property<string>("justificationUpdate")
                         .IsRequired()
                         .HasColumnType("text");
@@ -66,6 +69,57 @@ namespace WebApplication1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MedicalConsultation");
+                });
+
+            modelBuilder.Entity("WebApplication1.Core.Entities.Prescription", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("crmDoctor")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("doctorName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("dosageRemedy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("frequency")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("frequencyRemedy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("observation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("patientName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.PrimitiveCollection<List<string>>("remedyPrescription")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<int>("validityPrescription")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Prescription");
                 });
 
             modelBuilder.Entity("WebApplication1.Core.Entities.TypeAppointmentMedical", b =>

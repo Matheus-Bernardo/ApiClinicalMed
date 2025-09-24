@@ -1,5 +1,6 @@
 ﻿using WebApplication1.Core.Entities;
 using WebApplication1.DTOS.Login;
+using WebApplication1.Enums;
 using WebApplication1.Utils;
 
 namespace WebApplication1.Services.LoginService;
@@ -7,8 +8,8 @@ namespace WebApplication1.Services.LoginService;
 public class LoginService: ILoginService
 {
     private readonly FindUser _findUser;
-    private  IPasswordHasher _passwordHasher;
-    private IJwtService _jwtService;
+    private readonly IJwtService _jwtService;
+    private  readonly IPasswordHasher _passwordHasher;
 
     public LoginService(FindUser findUser, IPasswordHasher passwordHasher, IJwtService jwtService)
     {
@@ -31,8 +32,8 @@ public class LoginService: ILoginService
             throw new ArgumentException("Invalid password");
         
         var token = _jwtService.GenerateToken(user);
-        
-        return new ResponseLoginDto()
+
+       return new ResponseLoginDto()
         {
             Id = user.Id,
             Token = token,
