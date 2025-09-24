@@ -1,0 +1,25 @@
+﻿<div style="max-width:650px;margin:0 auto;padding:30px 25px;border:1px solid #ccc;border-radius:10px;font-family:Arial,sans-serif;background:#fff;color:#000;">
+    <h2 style="text-align:center;font-size:28px;color:#2E7D32;margin-bottom:5px;">Receita Médica</h2>
+    <h3 style="text-align:center;font-size:18px;color:#555;margin-bottom:20px;">Nº {prescriptionId}</h3>
+
+    <p><strong style="color:#4B0082;">Paciente:</strong> {patientName}</p>
+    <p><strong style="color:#4B0082;">Enfermeira(o):</strong> {doctorName}</p>
+    <p><strong>CRM:</strong> {crmDoctor}</p>
+    <p><strong>Validade:</strong> {validityPrescription} dias</p>
+
+    <h4 style="color:#2E7D32;margin-bottom:8px;">Medicamentos Prescritos:</h4>
+    <ul style="padding-left:20px;">
+        {remedyPrescription}
+    </ul>
+
+    <p><strong>Frequência Geral:</strong> {frequency}</p>
+    <p><strong>Dosagem do Remédio:</strong> {dosageRemedy}</p>
+    <p><strong>Frequência do Remédio:</strong> {frequencyRemedy}</p>
+
+    <p><strong>Observações:</strong></p>
+    <p style="padding:8px;border-left:4px solid #2E7D32;background:#f9f9f9;border-radius:4px;">{observation}</p>
+
+    <p>__________________________________</p>
+    <p>Assinatura da Enfermeira(o)</p>
+    <p>Emitido em: {createdAt}</p>
+</div>

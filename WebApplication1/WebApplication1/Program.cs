@@ -3,8 +3,10 @@ using WebApplication1.Extensions;
 using WebApplication1.Infrastructure.Data;
 using WebApplication1.Services.LoginService;
 using WebApplication1.Utils;
+using QuestPDF.Infrastructure; 
 
 var builder = WebApplication.CreateBuilder(args);
+QuestPDF.Settings.License = LicenseType.Community;
 
 builder.Services.AddCors(options =>
 {

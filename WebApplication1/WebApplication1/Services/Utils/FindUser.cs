@@ -38,4 +38,9 @@ public class FindUser
     {
         return await _dbContext.User.FindAsync(userId);
     }
+
+    public async Task<Doctor?> FindDoctorByCrm(string doctorCrm)
+    {
+        return await _dbContext.Doctor.FirstOrDefaultAsync(doctor => doctor.crm == doctorCrm);
+    }
 }

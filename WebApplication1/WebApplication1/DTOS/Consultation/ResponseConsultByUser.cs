@@ -2,6 +2,8 @@
 
 public class ResponseConsultByUser
 {
+    public int ConsultationId { get; set; }
+    public string crmDoctor{get;set;}
     public string typeAppointment { get; set; }
     public string doctorName { get; set; }
     public string patientName { get; set; }

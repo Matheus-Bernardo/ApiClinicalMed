@@ -1,9 +1,11 @@
 ﻿using WebApplication1.Core.Entities;
 using WebApplication1.DTOS.Consultation;
+using WebApplication1.DTOS.Email;
 using WebApplication1.Enums;
 using WebApplication1.Repositories.ConsultationRepository;
 using WebApplication1.Services.EmailService;
 using WebApplication1.Services.MettingService;
+using WebApplication1.Services.PrescriptionService;
 using WebApplication1.Services.Validators.AppointmentMedicalValidator;
 using WebApplication1.Services.Validators.ConsultationMedicalValidator;
 using WebApplication1.Utils;
@@ -15,6 +17,7 @@ public class ConsultationService: IConsultationService
     private readonly FindUser _findUser;
     private readonly IEmailService _emailService;
     private readonly IMeetingService _meetingService;
+    private readonly IPrescriptionService _prescriptionService;
     private readonly IConsultationRepository _consultationRepository;
     private readonly IAppointmentMedicalValidatorService _appointmentMedicalValidatorService;
     private readonly IConsultationMedicalValidatorService _consultationMedicalValidatorService;
@@ -23,6 +26,7 @@ public class ConsultationService: IConsultationService
         FindUser findUser,
         IEmailService emailService,
         IMeetingService meetingService,
+        IPrescriptionService prescriptionService,
         IConsultationRepository consultationRepository,
         IAppointmentMedicalValidatorService appointmentMedicalValidatorService,
         IConsultationMedicalValidatorService consultationMedicalValidatorService)
@@ -30,6 +34,7 @@ public class ConsultationService: IConsultationService
         _findUser = findUser;
         _emailService = emailService;
         _meetingService = meetingService;
+        _prescriptionService = prescriptionService;
         _consultationRepository = consultationRepository;
         _appointmentMedicalValidatorService = appointmentMedicalValidatorService;
         _consultationMedicalValidatorService = consultationMedicalValidatorService;
@@ -104,12 +109,14 @@ public class ConsultationService: IConsultationService
         
         return consults.Select(c => new ResponseConsultByUser
         {
+            ConsultationId = c.Id,
             typeAppointment = c.typeAppointmentMedical.ToString(),
             consultationTime = c.consultationTime,
             consultationLink = c.consultationLink,
             status = c.status.ToString(),
             doctorName = c.Doctor.firstName + " " + c.Doctor.lastName,
             patientName = c.Patient.firstName + " " + c.Patient.lastName,
+            crmDoctor = c.Doctor.crm,
         }).ToList();
        
     }
@@ -122,13 +129,38 @@ public class ConsultationService: IConsultationService
             throw new ArgumentException("Medical consultation not found");
         }
 
-        try{
+        try
+        {
             findConsult.updatedAt = DateTime.UtcNow;
             findConsult.status = finishConsultationDto.status;
             findConsult.idPrescription = finishConsultationDto.prescriptionId;
             await _consultationRepository.finishConsultationUpdate(findConsult);
+
+            var findPrescription = await _prescriptionService.getPrescriptionById(finishConsultationDto.prescriptionId);
             
-        }catch (Exception e){throw new ArgumentException("update failure");}
+            
+            var emailDto = new SendPrescriptionEmailDTO
+            {
+                PrescriptionId = finishConsultationDto.prescriptionId,
+                PatientName = findPrescription.patientName,
+                DoctorName = findPrescription.doctorName,
+                CrmDoctor = findPrescription.crmDoctor,
+                EmailDoctor = findConsult.Doctor.email,
+                EmailPatient = findConsult.Patient.email,
+                ValidityPrescription = findPrescription.validityPrescription,
+                RemedyPrescription = new List<string>(findPrescription.remedyPrescription),
+                DosageRemedy = findPrescription.dosageRemedy,
+                FrequencyRemedy = findPrescription.frequencyRemedy,
+                Observation = findPrescription.observation ?? "Sem observações",
+                CreatedAt = DateTime.UtcNow
+            };
+            await _emailService.SendPrescriptionEmail(finishConsultationDto.prescriptionId, emailDto);
+            
+
+        }
+        catch (Exception e)
+        {
+            throw;}
         
         
         

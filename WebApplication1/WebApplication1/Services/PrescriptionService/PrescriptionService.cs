@@ -27,8 +27,11 @@ public class PrescriptionService:IPrescriptionService
 
     }
 
-    public Task<Prescription> getPrescriptionById(int id)
+    public async Task<Prescription> getPrescriptionById(int id)
     {
-        throw new NotImplementedException();
+        var prescription = await _prescriptionRepository.GetPrescriptionById(id);
+        
+        if(prescription == null) throw new ArgumentException("Prescription not found");
+        return prescription;
     }
 }

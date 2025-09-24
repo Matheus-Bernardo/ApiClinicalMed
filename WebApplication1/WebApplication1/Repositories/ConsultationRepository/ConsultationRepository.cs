@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1.Core.Entities;
-using WebApplication1.DTOS.Consultation;
 using WebApplication1.Infrastructure.Data;
 
 namespace WebApplication1.Repositories.ConsultationRepository;
@@ -26,9 +25,12 @@ public class ConsultationRepository: IConsultationRepository
         return await _context.MedicalConsultation.ToListAsync();
     }
 
-    public async  Task<MedicalConsultation?> GetConsultById(int consultId)
+    public async Task<MedicalConsultation?> GetConsultById(int consultId)
     {
-        return await _context.MedicalConsultation.FindAsync(consultId);
+        return await _context.MedicalConsultation
+            .Include(mc => mc.Doctor)
+            .Include(mc => mc.Patient)
+            .FirstOrDefaultAsync(mc => mc.Id == consultId);
     }
 
     public async Task<List<MedicalConsultation>> GetMedicalConsultationsByUserId(int userId)
