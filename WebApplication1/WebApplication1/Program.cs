@@ -4,6 +4,9 @@ using WebApplication1.Infrastructure.Data;
 using WebApplication1.Services.LoginService;
 using WebApplication1.Utils;
 using QuestPDF.Infrastructure; 
+using Hangfire;
+using Hangfire.PostgreSql;
+
 
 var builder = WebApplication.CreateBuilder(args);
 QuestPDF.Settings.License = LicenseType.Community;
@@ -26,6 +29,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //services
+builder.Services.AddHangfire(config=>
+    config.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddHangfireServer();
 builder.Services.AddApplicationPatientServices();
 builder.Services.AddApplicationValidationServices();
 builder.Services.AddApplicationConsultationServices();
@@ -52,5 +58,6 @@ app.UseAuthorization();
 
 app.UseGlobalExceptionHandler();
 
+app.UseHangfireDashboard();
 app.MapControllers();
 await app.RunAsync();

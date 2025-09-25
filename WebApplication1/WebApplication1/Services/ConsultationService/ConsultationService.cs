@@ -9,6 +9,7 @@ using WebApplication1.Services.PrescriptionService;
 using WebApplication1.Services.Validators.AppointmentMedicalValidator;
 using WebApplication1.Services.Validators.ConsultationMedicalValidator;
 using WebApplication1.Utils;
+using Hangfire;
 
 namespace WebApplication1.Services.ConsultationService;
 
@@ -154,7 +155,11 @@ public class ConsultationService: IConsultationService
                 Observation = findPrescription.observation ?? "Sem observações",
                 CreatedAt = DateTime.UtcNow
             };
-            await _emailService.SendPrescriptionEmail(finishConsultationDto.prescriptionId, emailDto);
+
+            BackgroundJob.Enqueue<IEmailService>(service =>
+                service.SendPrescriptionEmail(finishConsultationDto.prescriptionId,emailDto));
+            
+            return findConsult;
             
 
         }
