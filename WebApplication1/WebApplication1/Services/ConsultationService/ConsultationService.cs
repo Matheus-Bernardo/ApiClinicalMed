@@ -94,7 +94,8 @@ public class ConsultationService: IConsultationService
             emailPatient = patientFind.email
         };
         
-        await _emailService.SendAppointmentEmail(response);
+        BackgroundJob.Enqueue<IEmailService>(service =>
+            service.SendAppointmentEmail(response));
         
         return response;
     }
